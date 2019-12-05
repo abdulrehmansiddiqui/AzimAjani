@@ -1,0 +1,15 @@
+[05-Nov-2019 11:29:32 Etc/GMT] PHP Notice:  Undefined index: role in /home/jazsoftadmin/public_html/AzimAjani/home.php on line 38
+[05-Nov-2019 11:29:32 Etc/GMT] PHP Notice:  Undefined index: role in /home/jazsoftadmin/public_html/AzimAjani/home.php on line 97
+[05-Nov-2019 11:29:32 Etc/GMT] PHP Notice:  Undefined index: role in /home/jazsoftadmin/public_html/AzimAjani/home.php on line 109
+[05-Nov-2019 11:29:32 Etc/GMT] PHP Notice:  Undefined index: role in /home/jazsoftadmin/public_html/AzimAjani/home.php on line 120
+[13-Nov-2019 13:20:32 Etc/GMT] PHP Notice:  Undefined variable: con in /home/jazsoftadmin/public_html/AzimAjani/ViewReport.php on line 9
+[13-Nov-2019 13:20:32 Etc/GMT] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/jazsoftadmin/public_html/AzimAjani/ViewReport.php on line 9
+[13-Nov-2019 13:20:32 Etc/GMT] PHP Notice:  Undefined variable: con in /home/jazsoftadmin/public_html/AzimAjani/ViewReport.php on line 9
+[13-Nov-2019 13:20:32 Etc/GMT] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, null given in /home/jazsoftadmin/public_html/AzimAjani/ViewReport.php on line 9
+[13-Nov-2019 13:31:10 Etc/GMT] PHP Warning:  include(includes/connection.php): failed to open stream: No such file or directory in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[13-Nov-2019 13:31:10 Etc/GMT] PHP Warning:  include(includes/connection.php): failed to open stream: No such file or directory in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[13-Nov-2019 13:31:10 Etc/GMT] PHP Warning:  include(): Failed opening 'includes/connection.php' for inclusion (include_path='.:/opt/alt/php71/usr/share/pear') in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[13-Nov-2019 13:31:23 Etc/GMT] PHP Warning:  include(includes/connection.php): failed to open stream: No such file or directory in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[13-Nov-2019 13:31:23 Etc/GMT] PHP Warning:  include(includes/connection.php): failed to open stream: No such file or directory in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[13-Nov-2019 13:31:23 Etc/GMT] PHP Warning:  include(): Failed opening 'includes/connection.php' for inclusion (include_path='.:/opt/alt/php71/usr/share/pear') in /home/jazsoftadmin/public_html/AzimAjani/users.php on line 124
+[15-Nov-2019 06:56:03 Etc/GMT] PHP Notice:  Undefined index: role in /home/jazsoftadmin/public_html/AzimAjani/Reports_data.php on line 35
