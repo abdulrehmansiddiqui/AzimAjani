@@ -39,7 +39,7 @@ include("header/header.php");
           <select class="form-control" name="sort" id="search_by">
           <option value="1">Report View By Company & Branch</option>
           <option value="2">Report View By Date</option>
-          <option value="3">Report View By Email</option>
+          <option value="3">Report View By User ID</option>
           </select>
         </div>
 
@@ -68,8 +68,20 @@ include("header/header.php");
           </div>
         </div>
         <div class="col-md-4 mb-3" id="search_email_area" >
-          <Label>Email</Label>
-          <input name='email' id="emailr" type='email' class='form-control' />
+          <Label>USER ID</Label>
+          <select class="form-control" name="email" id="emailr" >
+		        <option value='' style='display:none'>Select USER ID</option>
+            <?php
+              $sql = "SELECT * FROM users_table";
+              $result = $con->query($sql);
+              while($row = $result->fetch_assoc()) {
+                $uniqueid = str_pad($row["id"] , 3, 0, STR_PAD_LEFT);
+                echo '<option value="'.$row["email"].'">'.$uniqueid.'</option>';	    	
+              }
+            ?>
+          </select>
+
+          <!-- <input name='email' id="emailr" type='email' class='form-control' /> -->
         </div>
         
         <div class="col-md-12" >
@@ -84,7 +96,7 @@ include("header/header.php");
       <th>S.NO</th>
       <th>Company</th>
       <th>Branch</th>
-      <th>User</th>
+      <th>User ID</th>
       <th>Date</th>
       <th>Check</th>
     </tr>
@@ -168,11 +180,14 @@ if(isset($_POST['update'])){
           $branch_name = $rowb['branch_info_title'];
           /////////////////////////////////
           $count++;
+          
+          $uniqueuser_id = str_pad($user_id , 3, 0, STR_PAD_LEFT);
+
           echo "<tr>
           <td>".$count."</td>
           <td>$company_name</td>  
           <td>$branch_name</td>
-          <td>$user_email</td>
+          <td>$uniqueuser_id</td>
           <td>$date</td>
           <td><a href='singleDataReport.php?rid=$id&uid=$user_id'>Open</a></td>
           </tr>";

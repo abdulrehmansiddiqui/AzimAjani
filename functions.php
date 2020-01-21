@@ -71,7 +71,7 @@ if(isset($_POST["DataFileUpload"]))
             $sql2 = "DELETE FROM `data_list` WHERE branch_id='$branch_id'";
             if ($con->query($sql2) === TRUE){}
             else { echo "Error DELETE record: " . $con->error; die(); }
-            
+
             $sql2 = "DELETE FROM `table_data_01` WHERE data_branchId='$branch_id'";
             if ($con->query($sql2) === TRUE){}
             else { echo "Error DELETE record: " . $con->error; die(); }
@@ -371,7 +371,7 @@ if(isset($_POST["Import"]))
                 }
             }
 			echo"<script>alert('Report Has been Genreated')</script>";
-			echo"<script>window.open('./home.php','_self')</script>";
+			echo"<script>window.open('./showreportnumnber.php?Rid=$report_id','_self')</script>";
         }
         else
         {

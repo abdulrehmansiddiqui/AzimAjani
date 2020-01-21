@@ -33,6 +33,7 @@ include("header/header.php");
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
@@ -63,8 +64,7 @@ include("header/header.php");
         <div class="modal-body">
 
 
-
-            <input type="hidden" value="" id="update_input_id"/>
+        <input type="hidden" value="" id="update_input_id"/>
       <div class="row">
         <div class="col form-group">
           <label>Name</label>

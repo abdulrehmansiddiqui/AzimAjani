@@ -61,11 +61,17 @@ include("config.php");
     }
 
     elseif (isset($_POST['branch_get_detail'])) {
-        $branch_id = "";
 		echo '<table class="table table-bordered">
-              <thead><tr><th>Name</th><th>Phone Number</th><th>Address</th></tr></thead><tbody>';
-    	$company_id  = $_POST['branch_get_detail'];
-	    $sql = "SELECT * FROM branch_table WHERE company_id_fk='$company_id'";
+              <thead><tr><th>Name</th><th>Phone Number</th><th>Address</th><th>Data Rec</th></tr></thead><tbody>';
+        $branchid  = $_POST['branch_get_detail'];
+        
+	    $get_user = "SELECT * FROM table_data_01 WHERE data_branchId='$branchid'";
+        $run_user = mysqli_query($con,$get_user);
+        $check = mysqli_num_rows($run_user);
+        if($check==0){$check = 'No Record <Br>Found';}
+
+
+	    $sql = "SELECT * FROM branch_table WHERE branch_id='$branchid'";
 	    $result = $con->query($sql);
 	    if($row = $result->fetch_assoc()) {
 	        echo "<input type='hidden' value='".$row["branch_info_title"]."' name='table_name' />";
@@ -75,16 +81,18 @@ include("config.php");
            <td>".$row["branch_info_title"]."</td>
            <td>".$row["branch_info_phone"]."</td>
            <td>".$row["branch_info_address"]."</td>
+           <td>$check</td>
            </tr>";
            
            $branch_id = $row["branch_id"];
 	    }
 	    echo "</tbody></table>";
 
+        
 	    $sql = "SELECT * FROM data_list WHERE branch_id='$branch_id'";
 	    $result = $con->query($sql);
 	    if($row = $result->fetch_assoc()) { echo "The Data File Is already Upload"; }
-	    else { echo "Now You Have to upload data file"; }
+	    else { echo "PLEASE CONTACT YOUR ADMIN TO UPLOAD DATA FILE"; }
 
 	    $sql = "SELECT * FROM table_data_01 WHERE data_branchId='$branch_id'";
 	    $result = $con->query($sql);
@@ -102,7 +110,6 @@ include("config.php");
     
     
     
-    
     // ------------------------------------------------------------------    
     // ------------------------------------------------------------------    
     // ------------------------------------------------------------------    
@@ -113,18 +120,40 @@ include("config.php");
 
 
     elseif (isset($_POST['zone_name'])) {
-    	$zone_name = $_POST['zone_name'];
-       	$sql2 = "INSERT INTO zone_table (zone_title) VALUES ('$zone_name');";
-		if ($con->query($sql2) === TRUE) { echo "Zone Successfully Add."; }
-		else { echo "Error: " . $sql2 . "<br>" . $con->error; }
+        $zone_name = $_POST['zone_name'];
+
+        $get_user = "select * from zone_table where zone_title='$zone_name'";
+        $run_user = mysqli_query($con,$get_user);
+        $check = mysqli_num_rows($run_user);
+        if($check==1){
+            echo "Already Exist.";
+        }
+        else{
+            $sql2 = "INSERT INTO zone_table (zone_title) VALUES ('$zone_name');";
+            if ($con->query($sql2) === TRUE) { echo "Zone Successfully Add."; }
+            else { echo "Error: " . $sql2 . "<br>" . $con->error; }
+        }
+        
+
     }
     
     elseif (isset($_POST['zone_type'])&&isset($_POST['company_name'])) {
     	$zone_type = $_POST['zone_type'];
-    	$company_name = $_POST['company_name'];
-       	$sql2 = "INSERT INTO company_table (company_title, zone_id_fk) VALUES ('$company_name', '$zone_type');";
-		if ($con->query($sql2) === TRUE) { echo "Company Successfully Add."; }
-		else { echo "Error: " . $sql2 . "<br>" . $con->error; }
+        $company_name = $_POST['company_name'];
+
+        $get_user = "select * from company_table where company_title='$company_name' AND zone_id_fk='$zone_type'";
+        $run_user = mysqli_query($con,$get_user);
+        $check = mysqli_num_rows($run_user);
+        if($check==1){
+            echo "Already Exist.";
+        }
+        else{
+            $sql2 = "INSERT INTO company_table (company_title, zone_id_fk) VALUES ('$company_name', '$zone_type');";
+         if ($con->query($sql2) === TRUE) { echo "Company Successfully Add."; }
+         else { echo "Error: " . $sql2 . "<br>" . $con->error; }
+        }
+        
+        
     }
     
     elseif (isset($_POST['zone'])&&isset($_POST['company'])&&isset($_POST['branch_code'])&&isset($_POST['branch_name'])&&isset($_POST['branch_address'])&&isset($_POST['branch_phoneNum'])&&isset($_POST['branch_email'])) {
@@ -207,11 +236,15 @@ include("config.php");
                 $email_id = "email_".$id;
                 $role_id = "role_".$id;
                 $role = "User";
+
+                $uniqueid = str_pad($id , 3, 0, STR_PAD_LEFT);
+
                 if($row["role"] == '1'){ $role = "Admin"; }
                 echo '<input type="hidden" value="'.$name.'" id="'.$name_id.'"/> ';
                 echo '<input type="hidden" value="'.$email.'" id="'.$email_id.'"/> ';
                 echo '<input type="hidden" value="'.$role.'" id="'.$role_id.'"/> ';
                 echo '<tr>
+                <td>'.$uniqueid.'</td>
                 <td>'.$name.'</td>
                 <td>'.$email.'</td>
                 <td>'.$role.'</td>
@@ -355,31 +388,31 @@ include("config.php");
 	    }
     }
 
-    elseif (isset($_POST['add_S_NO'])&&isset($_POST['add_Branch_Code'])&&isset($_POST['add_ASSET_ID'])&&isset($_POST['add_ASSET_NAME'])&&isset($_POST['add_INVOICE_COST'])&&isset($_POST['add_TOTAL_COST'])&&isset($_POST['add_DATE_IN_USE'])&&isset($_POST['add_VENDOR'])&&isset($_POST['add_LIFE_IN_YR'])&&isset($_POST['add_DEP_TYPE'])&&isset($_POST['add_NET_VALUE'])) {
-    	$add_S_NO = $_POST['add_S_NO'];
-    	$add_Branch_Code = $_POST['add_Branch_Code'];
-    	$add_ASSET_ID = $_POST['add_ASSET_ID'];
-    	$add_ASSET_NAME = $_POST['add_ASSET_NAME'];
-    	$add_INVOICE_COST = $_POST['add_INVOICE_COST'];
-    	$add_TOTAL_COST = $_POST['add_TOTAL_COST'];
-    	$add_DATE_IN_USE = $_POST['add_DATE_IN_USE'];
-    	$add_VENDOR = $_POST['add_VENDOR'];
-    	$add_LIFE_IN_YR = $_POST['add_LIFE_IN_YR'];
-    	$add_DEP_TYPE = $_POST['add_DEP_TYPE'];
-    	$add_NET_VALUE = $_POST['add_NET_VALUE'];
-        $sql = "SELECT * FROM table_userDataInput WHERE ASSET_ID='$add_ASSET_ID'";
-        $result = $con->query($sql);
-        if ($result->num_rows > 0) { echo "Sorry this Aseet ID is already exist."; }
-        else
-        {
-            date_default_timezone_set("Asia/Karachi");
-            $insertDate = date("Y-m-d");
-            $loginEmail = $_POST['login_email'];
-          	$sql2 = "INSERT INTO table_userDataInput (S_NO, Branch_Code, ASSET_ID, ASSET_NAME, INVOICE_COST, TOTAL_COST, DATE_IN_USE, VENDOR, LIFE_IN_YR, DEP_TYPE, NET_VALUE, insertDate, loginEmail) VALUES ('$add_S_NO', '$add_Branch_Code', '$add_ASSET_ID', '$add_ASSET_NAME', '$add_INVOICE_COST', '$add_TOTAL_COST', '$add_DATE_IN_USE', '$add_VENDOR', '$add_LIFE_IN_YR', '$add_DEP_TYPE', '$add_NET_VALUE', '$insertDate', '$loginEmail')";
-    		if ($con->query($sql2) === TRUE) { echo "Successfully Add."; }
-    		else { echo "Error: " . $sql2 . "<br>" . $con->error; }
-        }
-    }
+    // elseif (isset($_POST['add_S_NO'])&&isset($_POST['add_Branch_Code'])&&isset($_POST['add_ASSET_ID'])&&isset($_POST['add_ASSET_NAME'])&&isset($_POST['add_INVOICE_COST'])&&isset($_POST['add_TOTAL_COST'])&&isset($_POST['add_DATE_IN_USE'])&&isset($_POST['add_VENDOR'])&&isset($_POST['add_LIFE_IN_YR'])&&isset($_POST['add_DEP_TYPE'])&&isset($_POST['add_NET_VALUE'])) {
+    // 	$add_S_NO = $_POST['add_S_NO'];
+    // 	$add_Branch_Code = $_POST['add_Branch_Code'];
+    // 	$add_ASSET_ID = $_POST['add_ASSET_ID'];
+    // 	$add_ASSET_NAME = $_POST['add_ASSET_NAME'];
+    // 	$add_INVOICE_COST = $_POST['add_INVOICE_COST'];
+    // 	$add_TOTAL_COST = $_POST['add_TOTAL_COST'];
+    // 	$add_DATE_IN_USE = $_POST['add_DATE_IN_USE'];
+    // 	$add_VENDOR = $_POST['add_VENDOR'];
+    // 	$add_LIFE_IN_YR = $_POST['add_LIFE_IN_YR'];
+    // 	$add_DEP_TYPE = $_POST['add_DEP_TYPE'];
+    // 	$add_NET_VALUE = $_POST['add_NET_VALUE'];
+    //     $sql = "SELECT * FROM table_userDataInput WHERE ASSET_ID='$add_ASSET_ID'";
+    //     $result = $con->query($sql);
+    //     if ($result->num_rows > 0) { echo "Sorry this Aseet ID is already exist."; }
+    //     else
+    //     {
+    //         date_default_timezone_set("Asia/Karachi");
+    //         $insertDate = date("Y-m-d");
+    //         $loginEmail = $_POST['login_email'];
+    //       	$sql2 = "INSERT INTO table_userDataInput (S_NO, Branch_Code, ASSET_ID, ASSET_NAME, INVOICE_COST, TOTAL_COST, DATE_IN_USE, VENDOR, LIFE_IN_YR, DEP_TYPE, NET_VALUE, insertDate, loginEmail) VALUES ('$add_S_NO', '$add_Branch_Code', '$add_ASSET_ID', '$add_ASSET_NAME', '$add_INVOICE_COST', '$add_TOTAL_COST', '$add_DATE_IN_USE', '$add_VENDOR', '$add_LIFE_IN_YR', '$add_DEP_TYPE', '$add_NET_VALUE', '$insertDate', '$loginEmail')";
+    // 		if ($con->query($sql2) === TRUE) { echo "Successfully Add."; }
+    // 		else { echo "Error: " . $sql2 . "<br>" . $con->error; }
+    //     }
+    // }
 
       
     elseif (isset($_POST['DELETE_Add_View_Data'])) {

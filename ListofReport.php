@@ -27,7 +27,7 @@ include("header/header.php");
           <select class="form-control" name="sort" id="search_by">
           <option value="1">Report View By Company & Branch</option>
           <option value="2">Report View By Date</option>
-          <option value="3">Report View By Email</option>
+          <option value="3">Report View By User ID</option>
           </select>
         </div>
 
@@ -56,8 +56,20 @@ include("header/header.php");
           </div>
         </div>
         <div class="col-md-4 mb-3" id="search_email_area" >
-          <Label>Email</Label>
-          <input name='email' id="emailr" type='email' class='form-control' />
+          <Label>USER ID</Label>
+          <select class="form-control" name="email" id="emailr" >
+		        <option value='' style='display:none'>Select USER ID</option>
+            <?php
+              $sql = "SELECT * FROM users_table";
+              $result = $con->query($sql);
+              while($row = $result->fetch_assoc()) {
+                $uniqueid = str_pad($row["id"] , 3, 0, STR_PAD_LEFT);
+                echo '<option value="'.$row["email"].'">'.$uniqueid.' '.$row["name"].'</option>';	    	
+              }
+            ?>
+          </select>
+
+          <!-- <input name='email' id="emailr" type='email' class='form-control' /> -->
         </div>
         
         <div class="col-md-12" >
@@ -72,7 +84,7 @@ include("header/header.php");
       <th>S.NO</th>
       <th>Company</th>
       <th>Branch</th>
-      <th>User</th>
+      <th>User ID</th>
       <th>Date</th>
       <th>Unique ID</th>
       <th>Check</th>
@@ -145,6 +157,7 @@ if(isset($_POST['update'])){
           $rowu = mysqli_fetch_array($runu);
           // $user_name = $rowu['fname'];
           $user_email = $rowu['email'];
+          $user_id = $rowu['id'];
           /////////////////////////////////Company Detail
           $selc = "select * from company_table where company_id='$company_id'";
           $runc = mysqli_query($con,$selc);
@@ -159,13 +172,14 @@ if(isset($_POST['update'])){
           $count++;
           $datetime = new DateTime($date);
 
-          $uniqueid = str_pad($id + 1, 5, 0, STR_PAD_LEFT);
+          $uniqueid = str_pad($id , 5, 0, STR_PAD_LEFT);
+          $uniqueuser_id = str_pad($user_id , 3, 0, STR_PAD_LEFT);
 
           echo "<tr>
           <td>".$count."</td>
           <td>$company_name</td>  
           <td>$branch_name</td>
-          <td>$user_email</td>
+          <td>$uniqueuser_id</td>
           <td>$date</td>
           <td>$company_name - ".$datetime->format('Y')." / $branch_name / $uniqueid</td>
           <td><a href='singleReports.php?rid=$id&uid=$user_id'>Open</a></td>

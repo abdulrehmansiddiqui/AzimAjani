@@ -63,14 +63,14 @@ include("header/header.php");
 
   	<div class="row" id="area1">
   	<div class="col-sm-6"><button style="width: 100%" id="CONFIRMATION_btn" class="btn btn-primary">CONFIRMATION</button></div>
-  	<div class="col-sm-6"><a href="logout.php"><button style="width: 100%" class="btn btn-danger">CANCEL</button></a></div>
+  	<div class="col-sm-6"><a href="home.php" style="width: 100%" class="btn btn-danger">CANCEL</a></div>
   	</div>
 
     <div class="row" id="area2" style="display:none">
         <div style="margin-left:15px; margin-bottom:20px;">
             
         <span id="dataFile_area">
-          <h3>Upload Data File First Then Upload CSV </h3>
+          <h3>PLEASE CONTACT YOUR ADMIN TO UPLOAD DATA FILE </h3>
         </span>
         
         <span id="CSVFile_area">
@@ -86,6 +86,12 @@ include("header/header.php");
           <label>SELECT SCANNED FILE - 03</label>
           <input type="file" name="file_CSV_03" class="form-control" accept=".csv">
           </div>
+          
+    <div class="form-group">
+        <div class="checkbox">
+          <label><input type="checkbox"  name="checkForm" value="1">&nbsp;&nbsp;&nbsp;Calculation Depreciation</label>
+        </div>
+    </div>
         </span>
 
         <div class="row" id="area3">
@@ -93,7 +99,7 @@ include("header/header.php");
         <button style="width: 100%" type="submit" name="Import" id="CONFIRMATION_btn2" class="btn btn-primary">CONFIRMATION</button>
         </div>
         <div class="col-sm-6">
-          <button style="width: 100%" id="CANCEL_btn2" class="btn btn-danger">CANCEL</button>
+      	<div class="col-sm-6"><a href="home.php" style="width: 100%" class="btn btn-danger">CANCEL</a></div>
         </div>
         </div>
         </div>
@@ -146,7 +152,7 @@ include("header/header.php");
   <div class="modal fade" id="add_compnay" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" >
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Compnay</h4>
         </div>
@@ -219,31 +225,20 @@ include("header/header.php");
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 <script>
-$("#branch").change(function(){
-    $("#error_msg").html("");
-    var compnay_id = $("#compnay option:selected").val();
-    var dataString = "branch_get_detail="+compnay_id;
-    $.ajax({
-      type:"post",
-      url:"db.php",
-      data: dataString,
-      success:function(data) {
-        $("#branch_information").html(data);
-      }
-    });
-});
 
 $(document).ready(function(){
     
     $("#branch").change(function(){
         $("#error_msg").html("");
-        var compnay_id = $("#compnay option:selected").val();
+        var compnay_id = $("#branch option:selected").val();
         var dataString = "branch_get_detail="+compnay_id;
         $.ajax({
           type:"post",
           url:"db.php",
           data: dataString,
-          success:function(data) { $("#branch_information").html(data); }
+          success:function(data) { 
+            $("#branch_information").html(data);
+          }
         });
     });
 
@@ -305,6 +300,9 @@ $(document).ready(function(){
             if(dataFileWork == "true"){
                 $('#file_DATA').removeAttr('required');
                 $("#dataFile_area").css("display", "none");
+            }
+            else{
+                $("#CSVFile_area").css("display", "none");
             }
             var selectedVal = $("#branch option:selected").val();
             if(selectedVal > 0){

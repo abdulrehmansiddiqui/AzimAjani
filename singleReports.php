@@ -67,7 +67,8 @@ $date = $row['dateTime_split_UpdateTable'];
 
 
 <?php
-    $uniqueid = str_pad($rid + 1, 5, 0, STR_PAD_LEFT);
+    $uniqueid = str_pad($rid , 5, 0, STR_PAD_LEFT);
+    $uniqueuser_id = str_pad($user_id , 3, 0, STR_PAD_LEFT);
     $year = new DateTime($date);
 echo"
     <div class='col-md-6'>
@@ -80,8 +81,9 @@ echo"
     <div class='col-md-6'>
         <strong>Date: </strong>$date<br>
         <strong>Report ID: </strong>$company_name - ".$year->format('Y')." / $branch_name / $uniqueid<br>
-        <strong>Name: </strong>$user_name<br>
-        <strong>Email: </strong>$user_email<br>
+        <strong>User Name: </strong>$user_name<br>
+        <strong>User Email: </strong>$user_email<br>
+        <strong>User ID: </strong>$uniqueuser_id<br>
     </div>
 ";
 ?>

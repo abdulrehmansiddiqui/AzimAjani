@@ -31,6 +31,7 @@ $branch = $row['data_branchId'];
 $date = $row['data_timeStamp'];
 
         /////////////////////////////////User Detail
+        $uniqueuser_id = str_pad($user_id , 3, 0, STR_PAD_LEFT);
         $sel = "select * from users_table where id='$user_id'";
         $runu = mysqli_query($con,$sel);
         $rowu = mysqli_fetch_array($runu);
@@ -59,6 +60,10 @@ $date = $row['data_timeStamp'];
 
     <div class="col-md-4">
     EMAIL: <strong><?php echo $user_email;?></strong>
+    </div>
+    
+    <div class="col-md-4">
+    USER ID: <strong><?php echo $uniqueuser_id;?></strong>
     </div>
 
     <div class="col-md-4">

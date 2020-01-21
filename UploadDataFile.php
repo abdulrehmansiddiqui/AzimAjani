@@ -55,11 +55,11 @@ include("header/header.php");
         <input type="file" name="file_DATA" id="file_DATA" class="form-control" accept=".csv" required />
         <input type="file" name="file_CSV"  id="file_CSV"  class="form-control" accept=".csv" hidden/>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <div class="checkbox">
           <label><input type="checkbox"  name="checkForm" value="1">&nbsp;&nbsp;&nbsp;Calculation Depreciation</label>
         </div>
-    </div>
+    </div> -->
 
     <div class="form-group">
         <div class="col-md-3">
@@ -94,8 +94,8 @@ $(document).ready(function(){
     
     $("#branch").change(function(){
         $("#error_msg").html("");
-        var compnay_id = $("#compnay option:selected").val();
-        var dataString = "branch_get_detail="+compnay_id;
+        var branch_id = $("#branch option:selected").val();
+        var dataString = "branch_get_detail="+branch_id;
         $.ajax({
           type:"post",
           url:"db.php",

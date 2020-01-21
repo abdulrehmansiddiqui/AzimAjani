@@ -31,6 +31,8 @@
           <hr class="sidebar-divider">
           <li class="nav-item active"><a class="nav-link" href="add_view_data.php"><i class="fa fa-plus-circle" aria-hidden="true"></i><span>Add / View Data</span></a></li>
           <hr class="sidebar-divider">
+          <li class="nav-item active"><a class="nav-link" href="branch.php"><i class="fas fa-plus"></i><span>Branch list</span></a></li>
+          <hr class="sidebar-divider">
           <li class="nav-item active"><a class="nav-link" href="users.php"><i class="fas fa-plus"></i><span>Create Users</span></a></li>
           <hr class="sidebar-divider">
           <li class="nav-item active"><a class="nav-link" href="viewUsers.php"><i class="fas fa-users"></i><span>View Users</span></a></li>
